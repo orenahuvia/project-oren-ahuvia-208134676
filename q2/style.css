@@ -1,0 +1,30 @@
+html{
+    scroll-behavior: smooth;
+}
+body{
+    direction: ltr;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    background-color: antiquewhite;
+}
+main{
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+}
+.cardSection{
+    flex: 2;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+.supportSection{
+    flex: 1;
+    align-items: right;
+}
+.card{
+
+}

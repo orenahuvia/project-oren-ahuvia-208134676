@@ -1,0 +1,34 @@
+*{
+    text-align: center;
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    direction: ltr;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    background-color: antiquewhite;
+}
+main{
+    padding: 20px;
+}
+.cardSection{
+    
+}
+.flightCard{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: space-evenly;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 5%;
+    box-shadow: 0 2px 5px black;
+    margin: 2px;
+
+}
+.flightDes{
+}
+.desImg{
+    width: 95%;
+}

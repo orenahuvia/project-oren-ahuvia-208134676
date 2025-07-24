@@ -80,7 +80,7 @@ ResetInput();
 function FindNextComplaintId(){
     const allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
     let complaintId;
-    if(!allComplaints)
+    if(allComplaints.length===0)
     {
         complaintId=1;
     }
@@ -97,11 +97,14 @@ function FindNextComplaintId(){
     }
     return complaintId;
 }
+function SaveNewComplaints(allComplaints){
+    localStorage.setItem(complaintKey, JSON.stringify(allComplaints));
+}
 function SaveItem(newComplaint){
     const allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
     allComplaints.push(newComplaint);
-    localStorage.setItem(complaintKey, JSON.stringify(allComplaints));
-    errorMessage.innerHTML='saved'
+    SaveNewComplaints(allComplaints);
+    errorMessage.innerHTML='saved';
 }
 function ResetInput(){
 const isClosed = document.getElementById('closed');
@@ -115,7 +118,7 @@ OemailAddress.value = '';
 }
 function LoadItems(){
     const allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
-     RenderItems(allComplaints);
+    RenderItems(allComplaints);
 }
 function RenderItems(allComplaints){
     const complaintSection = document.getElementById("complaintSection");
@@ -156,7 +159,23 @@ if(!allComplaints) return;
         complaintSection.appendChild(card);
     });
 }
+function deleteItem(id){
+    let allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
 
+    allComplaints = allComplaints.filter(complaint => complaint.id !== id);
+    SaveNewComplaints(allComplaints);
+}
+function updateItem(id, changes){
+    let allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
+    allComplaints.forEach(function (complaint){
+        if(complaint.complaintId===id)
+        {
+
+        }
+    });
+    SaveNewComplaints(allComplaints);
+
+}
 //#endregion
 document.addEventListener("DOMContentLoaded", function() {
     const complaintSection = document.getElementById("complaintSection");

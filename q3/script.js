@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const submitBtn=document.getElementById('submitBtn');
 const form=document.getElementById('form');
+const complaintKey = 'complaints';
 function CheckIfId(input){
     const inputReg = /^\d{5}$/;
     return inputReg.test(input);
@@ -49,5 +50,25 @@ if(mailAmount)
         }
 }
 errorMessage.innerHTML ='success';
-})
-})
+let isClosedValue;
+isClosed.forEach(element => {
+    if(element.checked)
+    {
+        isClosedValue=element.value;
+    }
+});
+const newComplaint = {
+    boxID: boxID,
+    boxColor: boxColor,
+    toneOfVoice: toneOfVoice,
+    mailAmount: mailAmount,
+    isClosed: isClosedValue,
+    userType: userType,
+    emaiAddress: emaiAddress,
+};
+const allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
+allComplaints.push(newComplaint);
+localStorage.setItem(complaintKey, JSON.stringify(allComplaints));
+errorMessage.innerHTML='saved'
+});
+});

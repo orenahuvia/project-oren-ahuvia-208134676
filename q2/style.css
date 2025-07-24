@@ -15,16 +15,37 @@ main{
     align-content: center;
 }
 .cardSection{
-    flex: 2;
+    flex: 5;
     display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: space-evenly;
+    border: 2px solid black;
 }
 .supportSection{
     flex: 1;
     align-items: right;
+    border: 2px solid black;
 }
 .card{
+    border: 2px solid black;
+    width: 400px;
+}
+#bestCard{
+    background-color: aqua;
+}
+.cTitle{
 
+}
+.cPrice{
+
+}
+.cBenifits{
+
+}
+.cList{
+
+}
+.listItem{
+    
 }

@@ -1,5 +1,10 @@
-document.addEventListener("DOMContentLoaded", function () {
-
+//#region
+const OboxID=document.getElementById('boxID');
+const OboxColor=document.getElementById('boxColor');
+const OtoneOfVoice=document.getElementById('toneOfVoice');
+const OmailAmount=document.getElementById('mailAmount');
+const OuserType=document.getElementById('userType');
+const OemailAddress=document.getElementById('emailAddress');
 const submitBtn=document.getElementById('submitBtn');
 const form=document.getElementById('form');
 const complaintKey = 'complaints';
@@ -15,15 +20,17 @@ function CheckIfEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
+if(form)
+{
 form.addEventListener("submit", function (event){
 event.preventDefault();
-const boxID=document.getElementById('boxID').value.trim();
-const boxColor=document.getElementById('boxColor').value.trim();
-const toneOfVoice=document.getElementById('toneOfVoice').value;
-const mailAmount=document.getElementById('mailAmount').value.trim();
-const isClosed = document.querySelectorAll('input[name="mailBoxStatus]')
-const userType=document.getElementById('userType').value;
-const emaiAddress=document.getElementById('emaiAddress').value.trim();
+const boxID=OboxID.value.trim();
+const boxColor=OboxColor.value.trim();
+const toneOfVoice=OtoneOfVoice.value;
+const mailAmount=OmailAmount.value.trim();
+const isClosed = document.querySelectorAll('input[name="mailBoxStatus]');
+const userType=OuserType.value;
+const emailAddress=OemailAddress.value.trim();
 
 const errorMessage=document.getElementById('errorMessage');
 if(!CheckIfId(boxID))
@@ -31,16 +38,12 @@ if(!CheckIfId(boxID))
     errorMessage.innerHTML = "Must enter valid Mail Box ID, which is a 5 charcter number";
     return;
 }
-if(!CheckIfEmail(emaiAddress))
+if(!CheckIfEmail(emailAddress))
 {
         errorMessage.innerHTML = "Must enter valid Email Addres";
         return;
 }
-if(!emaiAddress)
-{
-        errorMessage.innerHTML = "Must have Email Addres";
-        return;
-}
+
 if(mailAmount)
 {
     if(!CheckIfNumber(mailAmount))
@@ -57,18 +60,109 @@ isClosed.forEach(element => {
         isClosedValue=element.value;
     }
 });
+
 const newComplaint = {
+    complaintId: FindNextComplaintId() ,
     boxID: boxID,
     boxColor: boxColor,
     toneOfVoice: toneOfVoice,
     mailAmount: mailAmount,
     isClosed: isClosedValue,
     userType: userType,
-    emaiAddress: emaiAddress,
+    emailAddress: emailAddress,
 };
-const allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
-allComplaints.push(newComplaint);
-localStorage.setItem(complaintKey, JSON.stringify(allComplaints));
-errorMessage.innerHTML='saved'
+SaveItem(newComplaint);
+ResetInput();
 });
-});
+}
+//#endregion
+//#region 
+function FindNextComplaintId(){
+    const allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
+    let complaintId;
+    if(!allComplaints)
+    {
+        complaintId=1;
+    }
+    else
+    {
+        if(allComplaints[allComplaints.length - 1].complaintId)
+            {
+                complaintId=allComplaints[allComplaints.length - 1].complaintId+1;
+            }
+            else
+            {
+                complaintId=1;
+            }
+    }
+    return complaintId;
+}
+function SaveItem(newComplaint){
+    const allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
+    allComplaints.push(newComplaint);
+    localStorage.setItem(complaintKey, JSON.stringify(allComplaints));
+    errorMessage.innerHTML='saved'
+}
+function ResetInput(){
+const isClosed = document.getElementById('closed');
+OboxID.value = '';
+OboxColor.value = '';
+OtoneOfVoice.selectedIndex = 0;
+OmailAmount.value = '';
+isClosed.checked =true;
+OuserType.selectedIndex = 0;
+OemailAddress.value = '';
+}
+function LoadItems(){
+    const allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
+     RenderItems(allComplaints);
+}
+function RenderItems(allComplaints){
+    const complaintSection = document.getElementById("complaintSection");
+if(!allComplaints) return;
+    complaintSection.innerHTML ='';
+
+    allComplaints.forEach(function(complaint){
+        const card = document.createElement("div");
+        card.className="card";
+        const boxID=complaint.boxID;
+        let boxColor=complaint.boxColor;
+        if(!boxColor || boxColor==='')
+        {
+            boxColor = 'No Color specified';
+        }
+        const toneOfVoice = complaint.toneOfVoice;
+        let mailAmount=complaint.mailAmount;
+        if(!mailAmount || mailAmount==='')
+        {
+            mailAmount = 'No Color specified';
+        }
+        const isClosed = complaint.isClosed;
+        const userType = complaint.userType;
+        const emailAddress = complaint.emailAddress;
+        card.innerHTML=`
+        <div class="cardInfo">
+                        <h3 class="cID">ID: ${boxID}</h3>
+                        <p class="cItem">Color: ${boxColor}</p>
+                        <p class="cItem">Tone of voice: ${toneOfVoice}</p>
+                        <p class="cItem">Mail amount: ${mailAmount}</p>
+                        <p class="cItem">Mail Box is: ${isClosed}</p>
+                        <p class="cItem">User type: ${userType}</p>
+                        <p class="cItem">User email: ${emailAddress}</p>
+                        </div>
+                        <div class="cardAction">
+                        </div>
+        `;
+        complaintSection.appendChild(card);
+    });
+}
+
+//#endregion
+document.addEventListener("DOMContentLoaded", function() {
+    const complaintSection = document.getElementById("complaintSection");
+    if (complaintSection) { 
+        LoadItems();
+    }});
+
+
+

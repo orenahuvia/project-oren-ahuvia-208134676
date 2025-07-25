@@ -128,6 +128,7 @@ if(!allComplaints) return;
     allComplaints.forEach(function(complaint){
         const card = document.createElement("div");
         card.className="card";
+        const complaintId=complaint.complaintId;
         const boxID=complaint.boxID;
         let boxColor=complaint.boxColor;
         if(!boxColor || boxColor==='')
@@ -145,7 +146,8 @@ if(!allComplaints) return;
         const emailAddress = complaint.emailAddress;
         card.innerHTML=`
         <div class="cardInfo">
-                        <h3 class="cID">ID: ${boxID}</h3>
+                        <h3 class="cID">Complaint ID: ${complaintId}</h3>
+                        <h3 class="cID">Mail Box ID: ${boxID}</h3>
                         <p class="cItem">Color: ${boxColor}</p>
                         <p class="cItem">Tone of voice: ${toneOfVoice}</p>
                         <p class="cItem">Mail amount: ${mailAmount}</p>
@@ -155,26 +157,48 @@ if(!allComplaints) return;
                         </div>
                         <div class="cardAction">
                         </div>
+                            <div class="cardActions">
+
+                        <button onclick="deleteItem(${complaintId})" class="cardBtn deleteBtn">delete</button>
+                        <select id="atitudeChange${complaintId}" name="atitudeChange">
+                            <option value="Furius">Furius</option>
+                            <option value="Polite">Polite</option>
+                            <option value="Mild">Mild</option>
+                        </select>
+                        <button id="updateBtn${complaintId}" onclick="updateItem(${complaintId}, ...)" class="cardBtn updateBtn">Fix your attitude</button>
+                        </div>
         `;
         complaintSection.appendChild(card);
+        const updateButton = document.getElementById(`updateBtn${complaintId}`);
+        updateButton.addEventListener('click', function() {
+            const selectElement = document.getElementById(`atitudeChange${complaintId}`);
+            const selectedValue = selectElement.value;
+            updateItem(complaintId, selectedValue);
+        });
     });
 }
 function deleteItem(id){
     let allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
 
-    allComplaints = allComplaints.filter(complaint => complaint.id !== id);
+    allComplaints = allComplaints.filter(complaint => complaint.complaintId !== id);
     SaveNewComplaints(allComplaints);
+    LoadItems();
 }
 function updateItem(id, changes){
     let allComplaints = JSON.parse(localStorage.getItem(complaintKey))||[];
-    allComplaints.forEach(function (complaint){
-        if(complaint.complaintId===id)
-        {
-
+    let updated = false;
+    for (let complaint of allComplaints) {
+        if (complaint.complaintId === id) {
+            complaint.toneOfVoice=changes;
+            updated=true;
+            break;
         }
-    });
-    SaveNewComplaints(allComplaints);
-
+    }
+    if(updated)
+    {
+        SaveNewComplaints(allComplaints);
+        LoadItems();
+    }
 }
 //#endregion
 document.addEventListener("DOMContentLoaded", function() {

@@ -1,51 +1,147 @@
-html{
+* {
+    text-align: center;
+    box-sizing: border-box;
+}
+
+html {
     scroll-behavior: smooth;
 }
-body{
-    direction: ltr;
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
-    background-color: antiquewhite;
+ header {
+    text-align: center;
+    padding: 20px;
+    background-color: #2c3e50;
+    position: fixed; 
+    color: white;
+    top: 0; 
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    height: 100px;
 }
-main{
+body {
+    direction: ltr;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+}
+
+main {
     padding: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    align-content: center;
+    align-items: center;
+    padding-bottom: 100px; 
+    margin-top: 100px;
 }
-.cardSection{
+
+.cardSection {
     flex: 5;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
     align-items: space-evenly;
-    border: 2px solid black;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 25px;
 }
-.supportSection{
+
+.supportSection {
     flex: 1;
-    align-items: right;
-    border: 2px solid black;
+    align-items: right; 
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    margin-left: 20px;
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 250px;
+    height: fit-content; 
+    align-self: flex-start; 
 }
-.card{
-    border: 2px solid black;
-    width: 400px;
-}
-#bestCard{
-    background-color: aqua;
-}
-.cTitle{
 
+.card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    width: 300px;
+    margin: 20px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
-.cPrice{
 
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
-.cBenifits{
 
+#bestCard {
+    background-color: #e6f7ff;
+    border-color: #044081;
 }
-.cList{
 
+.cTitle {
+    font-size: 28px;
+    color: #34495e;
+    margin-bottom: 10px;
 }
-.listItem{
-    
+
+.cPrice {
+    font-size: 22px;
+    color: #e74c3c;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.cBenifits {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.cList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.listItem {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+button {
+    background-color: #044081;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #34495e;
+    transform: translateY(-2px);
+}
+
+footer{
+    text-align: center;
+    padding: 20px;
+    background-color: #2c3e50;
+    color: white;
+    position: fixed; 
+    bottom: 0; 
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; 
 }

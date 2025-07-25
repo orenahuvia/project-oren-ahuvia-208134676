@@ -1,42 +1,91 @@
 *{
     text-align: center;
+    box-sizing: border-box;
+
 }
 html{
     scroll-behavior: smooth;
 }
 body{
     direction: ltr;
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
-    background-color: antiquewhite;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+    color: #333;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px 0;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 main{
-    padding: 10px;
+    padding: 20px;
 }
-.cardSection{
-    
+.container h1 {
+    font-size: 40px;
+    color: #34495e;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 30px; 
 }
+
 .flightCard{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    border: 2px solid black;
-    border-radius: 2.5%;
-    box-shadow: 0 2px 5px black;
-    background-color: white;
-    padding: 5px;
+    border: 1px solid #ddd;   
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
+    background-color: #ffffff;
+    padding: 25px;
+    height: 450px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.flightCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+}
+.flightDes {
+    font-size: 32px; 
+    color: #044081; 
+    margin-bottom: 12px; 
+    font-weight: 600; 
+}
 
+.flightTime {
+    font-size: 24px;
+    color: #555;
+    margin-bottom: 12px;
 }
-.flightDes{
 
+.flightNum {
+    font-size: 20px;
+    color: #777; 
+    margin-bottom: 20px;
+    letter-spacing: 0.5px; 
 }
-.desImg{
-    width: 95%;
-    border: 2px solid black;
-    border-radius: 2.5%;
-    box-shadow: 0 2px 5px black;
+
+.desImg {
+    width: 100%;
+    max-height: 200px; 
+    object-fit: cover;
+    border: 1px solid #eee;
+    border-radius: 8px; 
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
 }
-.gateNum{
-    color: red;
+
+.gateNum {
+    color: #e74c3c; 
+    font-size: 22px;
+    font-weight: bold;
+    padding: 5px 10px; 
+    border: 1px dashed #e74c3c; 
+    border-radius: 5px;
 }

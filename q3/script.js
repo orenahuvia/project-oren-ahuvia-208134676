@@ -182,6 +182,7 @@ function deleteItem(id){
 
     allComplaints = allComplaints.filter(complaint => complaint.complaintId !== id);
     SaveNewComplaints(allComplaints);
+    filterTone.selectedIndex = 0;
     LoadItems();
 }
 function updateItem(id, changes){
@@ -197,15 +198,35 @@ function updateItem(id, changes){
     if(updated)
     {
         SaveNewComplaints(allComplaints);
+        filterTone.selectedIndex = 0;
         LoadItems();
     }
+}
+function FilterComplaintsByToneOfVoice(selectedTone) {
+    const allComplaints = JSON.parse(localStorage.getItem(complaintKey)) || [];
+    let filteredComplaints = [];
+
+    if (selectedTone === "All") { 
+        filteredComplaints = allComplaints;
+    } else {
+        filteredComplaints = allComplaints.filter(complaint => complaint.toneOfVoice === selectedTone);
+    }
+    
+    RenderItems(filteredComplaints);
 }
 //#endregion
 document.addEventListener("DOMContentLoaded", function() {
     const complaintSection = document.getElementById("complaintSection");
     if (complaintSection) { 
         LoadItems();
-    }});
+    }
+    const filterTone = document.getElementById("filterTone");
+    if (filterTone) {
+    filterTone.addEventListener('change', function() {
+    FilterComplaintsByToneOfVoice(filterTone.value);
+    });
+}
+});
 
 
 
